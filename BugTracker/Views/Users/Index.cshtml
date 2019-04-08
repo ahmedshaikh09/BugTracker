@@ -1,0 +1,53 @@
+﻿@model List<UsersViewModel>
+
+@{
+    ViewBag.Title = "Users";
+}
+
+
+@section css {
+    <link rel="stylesheet"
+          href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+}
+
+@section Scripts {
+    <script type="text/javascript"
+            src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js">
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#sample-datatables').DataTable();
+        });
+    </script>
+}
+
+<h2>All Users</h2>
+
+<table id="sample-datatables" class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+        <tr>
+            <td>@user.DisplayName</td>
+            <td>@user.Email</td>
+            <td>
+                @foreach (var role in user.Roles)
+                {
+                    @role
+                }
+            </td>
+            <td>
+                <a class="btn btn-primary" href="@Url.Action("UserRoleUpdate", "Users" , new { id = user.Id })">Update Roles</a>
+            </td>
+        </tr> 
+        }
+    </tbody>
+</table>

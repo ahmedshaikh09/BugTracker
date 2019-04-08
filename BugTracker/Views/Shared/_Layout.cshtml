@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Bubbly - Boootstrap 4 Admin template by Bootstrapious.com</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all,follow">
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="~/vendor/bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome CSS-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <!-- Google fonts - Popppins for copy-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,800">
+    <!-- orion icons-->
+    <link rel="stylesheet" href="~/css/orionicons.css">
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="~/css/style.default.css" id="theme-stylesheet">
+    <!-- Custom stylesheet - for your changes-->
+    <link rel="stylesheet" href="~/css/custom.css">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="~/img/favicon.png?3">
+    @RenderSection("css", false)
+</head>
+
+<body>
+
+    <!--HEADER START-->
+    <header class="header">
+        <nav class="navbar navbar-expand-lg px-4 py-2 bg-white shadow">
+            <a href="#" class="sidebar-toggler text-gray-500 mr-4 mr-lg-5 lead"><i class="fas fa-align-left"></i></a><a href=@Url.Action("Index", "Home")  class="navbar-brand font-weight-bold text-uppercase text-base">Bug Tracker Dashboard</a>
+            <ul class="ml-auto d-flex align-items-center list-unstyled mb-0">
+                <li class="nav-item dropdown ml-auto">
+                    <a id="userInfo" href="http://example.com" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle"><img src="~/img/icon.jpg" alt="user" style="max-width: 2.5rem;" class="img-fluid rounded-circle shadow"></a>
+                    <div aria-labelledby="userInfo" class="dropdown-menu">
+                        @Html.Partial("_LoginPartial")               
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <!--HEADER END-->
+
+    <!--SIDE BAR START-->
+    <div class="d-flex align-items-stretch">
+        <div id="sidebar" class="sidebar py-3">
+            <div class="text-gray-400 text-uppercase px-3 px-lg-4 py-4 font-weight-bold small headings-font-family">MAIN</div>
+            <ul class="sidebar-menu list-unstyled">
+                <li class="sidebar-list-item"><a href=@Url.Action("Index", "Home") class="sidebar-link text-muted active"><i class="o-home-1 mr-3 text-gray"></i><span>Home</span></a></li>
+                <li class="sidebar-list-item"><a href=@Url.Action("Index", "Users") class="sidebar-link text-muted"><i class="o-table-content-1 mr-3 text-gray"></i><span>Users And Roles</span></a></li>
+                <li class="sidebar-list-item"><a href=@Url.Action("MyProjects", "Projects") class="sidebar-link text-muted"><i class="o-survey-1 mr-3 text-gray"></i><span>My Projects</span></a></li>
+                <li class="sidebar-list-item"><a href=@Url.Action("Index", "Projects") class="sidebar-link text-muted"><i class="o-survey-1 mr-3 text-gray"></i><span>All Projects</span></a></li>
+            </ul>
+        </div>
+        <!--SIDE BAR END-->
+        <!--FOOTER START-->
+        <footer class="footer bg-white shadow align-self-end py-3 px-xl-5 w-100">
+            @RenderBody()
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-left text-primary">
+                        <p class="mb-2 mb-md-0">Project &copy; 2019</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!--FOOTER END-->
+    </div>
+
+    <!-- JavaScript files-->
+    <script src="~/vendor/jquery/jquery.min.js"></script>
+    <script src="~/vendor/popper.js/umd/popper.min.js"></script>
+    <script src="~/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/vendor/jquery.cookie/jquery.cookie.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+    <script src="~/js/front.js"></script>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>
