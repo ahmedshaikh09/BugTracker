@@ -10,29 +10,52 @@ using System.Web.Mvc;
 
 namespace BugTracker.Controllers
 {
+    [Authorize]
     public class ProjectsController : Controller
     {
-        private ApplicationDbContext DbContext { get; set; }
-
+        private ApplicationDbContext Context;
+        
         public ProjectsController()
         {
-            DbContext = new ApplicationDbContext();
+            Context = new ApplicationDbContext();
         }
-        // GET: Project
+
         [Authorize(Roles = "Admin,Project Manager")]
-        public ActionResult Index()
+        public ActionResult IndexAllProjects()
         {
-            var project = DbContext.Projects
+            var model = Context.Projects
                 .Select(p => new IndexProjectViewModel
                 {
                     Id = p.Id,
-                    Topic = p.Topic,
-                    Brief = p.Brief
+                    Name = p.Name,
+                    AssignedUsers = p.Users.Count,
+                    Tickets = p.Ticket.Count,
+                    Created = p.DateCreated,
+                    Updated = p.DateUpdated
                 }).ToList();
 
-            return View(project);
+            return View(model);
         }
 
+        [Authorize]
+        public ActionResult IndexMyProjects()
+        {
+            var userId = User.Identity.GetUserId();
+
+            var model = Context
+                .Projects
+                .Where(p => p.Users.Any(t => t.Id == userId))
+                .Select(p => new IndexMyProjectsViewModel
+                {
+                    Name = p.Name,
+                    AssignedUsers = p.Users.Count,
+                    Tickets = p.Ticket.Count,
+                    Created = p.DateCreated,
+                    Updated = p.DateUpdated, 
+                }).ToList();
+
+            return View(model);
+        }
         [Authorize(Roles = "Admin,Project Manager")]
         [HttpGet]
         public ActionResult AddProject()
@@ -53,13 +76,12 @@ namespace BugTracker.Controllers
             var userId = User.Identity.GetUserId();
 
             var project = new Project();
-            project.Topic = formData.Topic;
-            project.Brief = formData.Brief;
+            project.Name = formData.Name;
 
-            DbContext.Projects.Add(project);
-            DbContext.SaveChanges();
+            Context.Projects.Add(project);
+            Context.SaveChanges();
 
-            return RedirectToAction(nameof(ProjectsController.Index));
+            return RedirectToAction(nameof(ProjectsController.IndexAllProjects));
         }
 
         [Authorize(Roles = "Admin")]
@@ -68,19 +90,19 @@ namespace BugTracker.Controllers
         {
             if (!id.HasValue)
             {
-                return RedirectToAction(nameof(ProjectsController.Index));
+                return RedirectToAction(nameof(ProjectsController.IndexAllProjects));
             }
 
-            var project = DbContext.Projects.FirstOrDefault(p => p.Id == id.Value);
+            var project = Context.Projects.FirstOrDefault(p => p.Id == id.Value);
 
             if (project == null)
             {
-                return RedirectToAction(nameof(ProjectsController.Index));
+                return RedirectToAction(nameof(ProjectsController.IndexAllProjects));
             }
 
             var model = new AddEditProjectsViewModel();
-            model.Topic = project.Topic;
-            model.Brief = project.Brief;
+            model.Name = project.Name;
+
 
             return View(model);
         }
@@ -91,7 +113,7 @@ namespace BugTracker.Controllers
         {
             if (!id.HasValue)
             {
-                return RedirectToAction(nameof(ProjectsController.Index));
+                return RedirectToAction(nameof(ProjectsController.IndexAllProjects));
             }
 
             if (!ModelState.IsValid)
@@ -99,18 +121,54 @@ namespace BugTracker.Controllers
                 return View();
             }
 
-            var project = DbContext.Projects.FirstOrDefault(p => p.Id == id.Value);
+            var project = Context.Projects.FirstOrDefault(p => p.Id == id.Value);
 
-            project.Topic = model.Topic;
-            project.Brief = model.Brief;
+            project.Name = model.Name;
+            project.DateUpdated = DateTime.Now;
 
-            DbContext.SaveChanges();
+            Context.SaveChanges();
 
-            return RedirectToAction(nameof(ProjectsController.Index));
+            return RedirectToAction(nameof(ProjectsController.IndexAllProjects));
         }
-        public ActionResult MyProjects()
+
+        public ActionResult ProjectAssign(int id)
         {
-            return View();
+            var model = new ProjectAssignViewModel();
+            model.Id = id;
+
+            var project = Context.Projects.FirstOrDefault(p => p.Id == id);
+
+            var users = Context.Users.ToList();
+
+            var userIdsAssignedToProject = project.Users.ToList();
+
+            model.Users = users;
+            model.UsersInProject = userIdsAssignedToProject;
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin,ProjectManager")]
+        public ActionResult ProjectAssign(int id, List<string> userIds)
+        {
+            var project = Context.Projects.FirstOrDefault(p => p.Id == id);
+
+            project.Users.Clear();
+
+            if (userIds != null)
+            {
+
+                foreach (var userId in userIds)
+                {
+                    var user = Context.Users.FirstOrDefault(p => p.Id == userId);
+                    project.Users.Add(user);
+                }
+            }
+
+            Context.SaveChanges();
+
+            return RedirectToAction(nameof(ProjectsController.IndexAllProjects));
         }
     }
 }

@@ -49,10 +49,11 @@
             <ul class="sidebar-menu list-unstyled">
                 <li class="sidebar-list-item"><a href=@Url.Action("Index", "Home") class="sidebar-link text-muted active"><i class="o-home-1 mr-3 text-gray"></i><span>Home</span></a></li>
                 <li class="sidebar-list-item"><a href=@Url.Action("Index", "Users") class="sidebar-link text-muted"><i class="o-table-content-1 mr-3 text-gray"></i><span>Users And Roles</span></a></li>
-                <li class="sidebar-list-item"><a href=@Url.Action("MyProjects", "Projects") class="sidebar-link text-muted"><i class="o-survey-1 mr-3 text-gray"></i><span>My Projects</span></a></li>
-                <li class="sidebar-list-item"><a href=@Url.Action("Index", "Projects") class="sidebar-link text-muted"><i class="o-survey-1 mr-3 text-gray"></i><span>All Projects</span></a></li>
-            </ul>
-        </div>
+                <li class="sidebar-list-item"><a href=@Url.Action("IndexMyProjects", "Projects") class="sidebar-link text-muted"><i class="o-survey-1 mr-3 text-gray"></i><span>My Projects</span></a></li>
+                <li class="sidebar-list-item"><a href=@Url.Action("IndexAllProjects", "Projects") class="sidebar-link text-muted"><i class="o-survey-1 mr-3 text-gray"></i><span>All Projects</span></a></li>
+                <li class="sidebar-list-item"><a href=@Url.Action("Index", "Tickets") class="sidebar-link text-muted"><i class="o-survey-1 mr-3 text-gray"></i><span>Tickets</span></a></li>
+            </ul>                   
+</div>
         <!--SIDE BAR END-->
         <!--FOOTER START-->
         <footer class="footer bg-white shadow align-self-end py-3 px-xl-5 w-100">

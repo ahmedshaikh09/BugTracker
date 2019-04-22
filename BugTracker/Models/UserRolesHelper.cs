@@ -23,11 +23,6 @@ namespace BugTracker.Models
         {
             return userManager.IsInRole(userId, roleName);
         }
-
-        //public ApplicationUser GetUserById(string id)
-        //{
-        //    return userManager.FindById(id);
-        //}
         public ICollection<string> ListUserRoles(string userId)
         {
             return userManager.GetRoles(userId);

@@ -1,0 +1,18 @@
+﻿@model ManageRoleViewModel
+
+@{
+    ViewBag.Title = "ManageRoles";
+}
+
+<h2>Manage Roles</h2>
+<form method="post">
+    @foreach (var role in Model.AllRoles)
+    {
+        <input type="checkbox"
+               value="@role.Id"
+               name="userRoleIds"
+               @(Model.UserRoles.Any(p => p.Id == role.Id) ? "checked" : "") />
+        @role.Name
+    }
+    <input type="submit" value="Submit" class="btn btn-primary" />
+</form>

@@ -6,9 +6,10 @@ using System.Web;
 
 namespace BugTracker.Models.ViewModels
 {
-    public class AddEditProjectsViewModel
+    public class AddAttachmentViewModel
     {
         [Required]
-        public string Name { get; set; }
+        public HttpPostedFileBase FileUpload { get; set; }
+        public string MedialUrl { get; set; }
     }
 }

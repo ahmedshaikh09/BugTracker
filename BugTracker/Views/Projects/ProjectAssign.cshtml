@@ -1,0 +1,18 @@
+﻿@model ProjectAssignViewModel
+@{
+    ViewBag.Title = "ProjectAssign";
+}
+
+<h2>Project Assign</h2>
+
+<form method="post">
+    @foreach (var item in Model.Users)
+    {
+        <input type="checkbox"
+               value="@item.Id"
+               name="userIds"
+                       @(Model.UsersInProject.Any(p => p.Id == item.Id) ? "checked" : "") />
+        @item.DisplayName
+    }
+    <input type="submit" value="Submit" class="btn btn-primary" />
+</form>

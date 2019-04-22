@@ -1,0 +1,60 @@
+﻿@model List<IndexProjectViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+@section css {
+    <link rel="stylesheet"
+          href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+}
+
+@section Scripts {
+    <script type="text/javascript"
+            src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js">
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#sample-datatables').DataTable();
+        });
+    </script>
+}
+
+<h2>All Projects</h2>
+<hr />
+<a class="btn btn-primary" href="@Url.Action("AddProject", "Projects")">Add New Project</a>
+<hr />
+<table id="sample-datatables" class="table table-striped" style="text-align : center;">
+    <thead>
+        <tr>
+            <th>Project Name</th>
+            <th>Tickets</th>
+            <th>Created</th>
+            <th>Updated</th>
+            <th>Users Assigned</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var record in Model)
+        {
+            <tr>
+                <td>@record.Name</td>
+                <td>@record.Tickets</td>
+                <td>@record.Created</td>
+                <td>@record.Updated</td>
+                <td>@record.AssignedUsers</td>
+                <td>
+                    <a href="@Url.Action("EditProject", "Projects", new { id = record.Id })">Edit</a>
+                </td>
+                <td>
+                    <a href="@Url.Action("ProjectAssign", "Projects", new { id = record.Id })">Assign</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+

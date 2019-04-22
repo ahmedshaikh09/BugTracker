@@ -1,0 +1,34 @@
+﻿@model AddEditTicketViewModel
+@{
+    ViewBag.Title = "EditTicket";
+}
+
+<h2>Edit Ticket</h2>
+
+<form method="post" enctype="multipart/form-data">
+    @Html.ValidationSummary(false)
+    <div class="form-group">
+        @Html.LabelFor(p => Model.Title, "Title:")
+        @Html.TextBoxFor(p => Model.Title, new { @class = "form-control", placeholder = "Title" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(p => Model.Description, "Description:")
+        @Html.TextBoxFor(p => Model.Description, new { @class = "form-control", placeholder = "Description" })
+    </div>
+    <div class="form-group">
+        @Html.DropDownListFor(p => Model.Project, Model.Projects)
+    </div>
+    <div class="form-group">
+        @Html.DropDownListFor(p => Model.Priority, Model.TicketPriorities)
+    </div>
+    <div class="form-group">
+        @Html.DropDownListFor(p => Model.Type, Model.TicketTypes)
+    </div>
+    <div class="form-group">
+        @Html.DropDownListFor(p => Model.Status, Model.TicketStatuses)
+    </div>
+
+    <div class="">
+        <button type="submit" class="btn btn-default">Submit</button>
+    </div>
+</form>

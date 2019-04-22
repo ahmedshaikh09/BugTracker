@@ -1,8 +1,10 @@
-﻿@model List<UsersViewModel>
+﻿@model List<IndexMyProjectsViewModel>
 
 @{
-    ViewBag.Title = "Users";
+    ViewBag.Title = "MyProjects";
 }
+
+<h2>Your Projects</h2>
 
 
 @section css {
@@ -21,25 +23,30 @@
     </script>
 }
 
-<h2>All Users</h2>
+<h2>My Projects</h2>
 
 <table id="sample-datatables" class="table table-striped" style="text-align : center;">
     <thead>
         <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Roles</th>
+            <th>Project Name</th>
+            <th>Tickets</th>
+            <th>Created</th>
+            <th>Updated</th>
+            <th>Users Assigned</th>
+            <th></th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var user in Model)
+        @foreach (var record in Model)
         {
             <tr>
-                <td>@user.DisplayName</td>
-                <td>@user.Email</td>
-                <td>@string.Join(",", user.UserRoles)</td>
-                <td><a href="@Url.Action("ManageRoles", "Users", new { id = user.Id })">Change roles</a></td>
+                <td>@record.Name</td>
+                <td>@record.Tickets</td>
+                <td>@record.Created</td>
+                <td>@record.Updated</td>
+                <td>@record.AssignedUsers</td>
+                <td>
             </tr>
         }
     </tbody>
