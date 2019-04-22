@@ -1,0 +1,74 @@
+﻿
+@{
+    ViewBag.Title = "IndexMyTickets";
+}
+@model List<IndexTicketViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+@section css {
+    <link rel="stylesheet"
+          href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+}
+
+@section Scripts {
+    <script type="text/javascript"
+            src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js">
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#sample-datatables').DataTable();
+        });
+    </script>
+}
+
+ <h2>My Tickets</h2>
+<hr />
+<a class="btn btn-primary" href="@Url.Action("AddTicket", "Tickets")">Add New Ticket</a>
+<hr />
+<table id="sample-datatables" class="table table-striped" style="text-align : center;">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Created</th>
+            <th>Updated</th>
+            <th>Priority</th>
+            <th>Status</th>
+            <th>Type</th>
+            <th>Project</th>
+            <th>Creator</th>
+            <th>Assignee</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var record in Model)
+        {
+            <tr>
+                <td>@record.Title</td>
+                <td>@record.Description</td>
+                <td>@record.Created</td>
+                <td>@record.Updated</td>
+                <td>@record.Priority</td>
+                <td>@record.Status</td>
+                <td>@record.Type</td>
+                <td>@record.Project</td>
+                <td>@record.CreatedById</td>
+                <td>@record.AssignedToId</td>
+
+                <td>
+                    <a href="@Url.Action("EditTicket", "Tickets", new { id = record.Id })">Edit</a>
+                </td>
+                <td>
+                    <a href="@Url.Action("Details", "Tickets", new { title = record.Title  })">Details</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

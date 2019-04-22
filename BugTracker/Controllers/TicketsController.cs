@@ -27,9 +27,34 @@ namespace BugTracker.Controllers
 
         }
         // GET: Tickets
+        [Authorize(Roles = "Admin,Project Manager")]
         public ActionResult Index()
         {
             var model = Context.Tickets
+                .Select(p => new IndexTicketViewModel
+                {
+                    Id = p.Id,
+                    Title = p.Title,
+                    Description = p.Description,
+                    Created = p.DateCreated,
+                    Updated = p.DateUpdated,
+                    Priority = p.Priority.Name,
+                    Status = p.Status.Name,
+                    Type = p.Type.Name,
+                    Project = p.Projects.Name,
+                    CreatedById = p.CreatedBy.DisplayName,
+                    AssignedToId = p.AssignedTo.DisplayName,
+                }).ToList();
+
+            return View(model);
+        }
+        [Authorize(Roles = "Submitter,Developer")]
+        public ActionResult IndexMyTickets()
+        {
+            var userId = User.Identity.GetUserId();
+
+            var model = Context.Tickets
+                .Where(p => p.AssignedTo.Id == userId)
                 .Select(p => new IndexTicketViewModel
                 {
                     Id = p.Id,
@@ -99,7 +124,7 @@ namespace BugTracker.Controllers
 
             return RedirectToAction(nameof(TicketsController.Index));
         }
-        [Authorize(Roles = "Admin,Project Manager")]
+        [Authorize(Roles = "Admin,Project Manager,Developers")]
         [HttpGet]
         public ActionResult EditTicket(int? id)
         {
@@ -152,7 +177,7 @@ namespace BugTracker.Controllers
 
             return View(model);
         }
-        [Authorize(Roles = "Admin,Project Manager")]
+        [Authorize(Roles = "Admin,Project Manager,Developers")]
         [HttpPost]
         public ActionResult EditTicket(int? id, AddEditTicketViewModel model)
         {
@@ -223,6 +248,7 @@ namespace BugTracker.Controllers
 
             return View("Details", model);
         }
+
         [HttpPost]
         public ActionResult AddComment(string title, AddCommentViewModel formData)
         {
@@ -254,7 +280,7 @@ namespace BugTracker.Controllers
 
             return RedirectToAction("Details", "Tickets");
         }
-
+        [Authorize(Roles = "Admin,Project Manager")]
         [HttpPost]
         public ActionResult AssignTicket(string title, AssignTicketViewModel formData)
         {
@@ -281,6 +307,7 @@ namespace BugTracker.Controllers
             return RedirectToAction("Details", "Tickets");
         }
 
+        [Authorize(Roles = "Admin,Project Manager,Submitter,Developer")]
         [HttpPost]
         public ActionResult AddAttachment(string title, AddAttachmentViewModel formData)
         {

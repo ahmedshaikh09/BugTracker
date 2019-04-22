@@ -12,12 +12,23 @@ namespace BugTracker.Models.ViewModels
     {
         [Required]
         public string Title { get; set; }
+
+        [Required]
         public string Description { get; set; }
 
+        [Required]
         public int Status { get; set; }
+
+        [Required]
         public int Type { get; set; }
+
+        [Required]
         public int Priority { get; set; }
+
+        [Required]
         public int Project { get; set; }
+
+        [Required]
         public int CreatedById { get; set; }
 
         public IEnumerable<SelectListItem> TicketStatuses { get; set; }

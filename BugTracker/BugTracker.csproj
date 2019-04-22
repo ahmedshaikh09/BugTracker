@@ -2174,6 +2174,7 @@
     <Content Include="Views\Tickets\EditTicket.cshtml" />
     <Content Include="Views\Projects\ProjectAssign.cshtml" />
     <Content Include="Views\Tickets\Details.cshtml" />
+    <Content Include="Views\Tickets\IndexMyTickets.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
