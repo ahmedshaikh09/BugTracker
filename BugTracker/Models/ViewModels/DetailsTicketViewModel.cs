@@ -25,6 +25,8 @@ namespace BugTracker.Models.ViewModels
         public string CommentBody { get; set; }
         public List<Comment> Comments { get; set; }
 
+        public List<ChangeLog> ChangeLogs { get; set; }
+
         public string DevelopersId{ get; set; }
         public IEnumerable<SelectListItem> Developers { get; set; }
 

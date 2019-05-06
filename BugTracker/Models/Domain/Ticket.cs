@@ -11,6 +11,8 @@ namespace BugTracker.Models.Domain
         public string Title { get; set; }
         public string Description { get; set; }
 
+        public virtual List<ApplicationUser> UserNotification { get; set; }
+
         public virtual ApplicationUser CreatedBy { get; set; }
         public string CreatedById { get; set; }
 
@@ -18,8 +20,8 @@ namespace BugTracker.Models.Domain
         public string AssignedToId { get; set; }
 
         public int ProjectId { get; set; }
-        public virtual Project Projects { get; set; }
-        
+        public virtual Project Project { get; set; }
+
         public int TypeId { get; set; }
         public virtual TicketTypes Type { get; set; }
 
@@ -31,11 +33,12 @@ namespace BugTracker.Models.Domain
 
 
         public DateTime DateCreated { get; set; }
-        public DateTime? DateUpdated { get; set; }
 
         public virtual List<ApplicationUser> Users { get; set; }
 
         public virtual List<Comment> Comments { get; set; }
+
+        public virtual List<ChangeLog> ChangeLogs { get; set; }
 
         public virtual List<Attachment> Attachments { get; set; }
         public Ticket()

@@ -1,0 +1,21 @@
+﻿@model ProjectArchiveViewModel
+
+
+@{
+    ViewBag.Title = "ProjectArchive";
+}
+
+<h2>Are you sure you want to Archive this project?</h2>
+
+<form method="post" enctype="multipart/form-data">
+    @Html.ValidationSummary(false)
+    <div class="form-group">
+        <span>Confirm:</span>
+        @Html.CheckBoxFor(p => Model.Archived)
+    </div>
+    <div class="">
+        <button type="submit" class="btn btn-danger">Save</button>
+    </div>
+</form>
+<hr>
+<p>*WARNING: Once the project is Archived, the project and all the tickets assigned to it won't be visible in the system anymore.*</p>

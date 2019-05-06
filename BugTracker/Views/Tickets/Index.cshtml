@@ -31,7 +31,6 @@
             <th>Title</th>
             <th>Description</th>
             <th>Created</th>
-            <th>Updated</th>
             <th>Priority</th>
             <th>Status</th>
             <th>Type</th>
@@ -40,30 +39,33 @@
             <th>Assignee</th>
             <th></th>
             <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var record in Model)
         {
-            <tr>
-                <td>@record.Title</td>
-                <td>@record.Description</td>
-                <td>@record.Created</td>
-                <td>@record.Updated</td>
-                <td>@record.Priority</td>
-                <td>@record.Status</td>
-                <td>@record.Type</td>
-                <td>@record.Project</td>
-                <td>@record.CreatedById</td>
-                <td>@record.AssignedToId</td>
+        <tr>
+            <td>@record.Title</td>
+            <td>@record.Description</td>
+            <td>@record.Created</td>
+            <td>@record.Priority</td>
+            <td>@record.Status</td>
+            <td>@record.Type</td>
+            <td>@record.Project</td>
+            <td>@record.CreatedById</td>
+            <td>@record.AssignedToId</td>
 
-                <td>
-                    <a href="@Url.Action("EditTicket", "Tickets", new { id = record.Id })">Edit</a>
-                </td>
-                <td>
-                    <a href="@Url.Action("Details", "Tickets", new { title = record.Title  })">Details</a>
-                </td>
-            </tr>
+            <td>
+                <a href="@Url.Action("EditTicket", "Tickets", new { id = record.Id })">Edit</a>
+            </td>
+            <td>
+                <a href="@Url.Action("Details", "Tickets", new { id = record.Id  })">Details</a>
+            </td>
+            <td>
+                <a href="@Url.Action("TicketNotifications", "Tickets", new { id = record.Id })">Notifications</a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>

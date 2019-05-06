@@ -18,6 +18,7 @@ namespace BugTracker.Models.ViewModels
         public string Project { get; set; }
         public string CreatedById { get; set; }
         public string AssignedToId { get; set; }
+
         public List<Comment> Comments { get; set; }
         public DateTime Created { get; set; }
         public DateTime? Updated { get; set; }

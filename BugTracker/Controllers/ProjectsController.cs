@@ -24,6 +24,7 @@ namespace BugTracker.Controllers
         public ActionResult IndexAllProjects()
         {
             var model = Context.Projects
+                .Where(p => p.Archived == false)
                 .Select(p => new IndexProjectViewModel
                 {
                     Id = p.Id,
@@ -125,6 +126,37 @@ namespace BugTracker.Controllers
 
             project.Name = model.Name;
             project.DateUpdated = DateTime.Now;
+
+            Context.SaveChanges();
+
+            return RedirectToAction(nameof(ProjectsController.IndexAllProjects));
+        }
+
+        [Authorize(Roles = "Admin,Project Manager")]
+        [HttpGet]
+        public ActionResult ProjectArchive()
+        {
+            return View();
+
+        }
+
+        [Authorize(Roles = "Admin,Project Manager")]
+        [HttpPost]
+        public ActionResult ProjectArchive(int? id, ProjectArchiveViewModel model)
+        {
+            if (!id.HasValue)
+            {
+                return RedirectToAction(nameof(ProjectsController.IndexAllProjects));
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            var project = Context.Projects.FirstOrDefault(p => p.Id == id.Value);
+
+            project.Archived = model.Archived;
 
             Context.SaveChanges();
 

@@ -1,26 +1,115 @@
-﻿@{
+﻿@model IndexDashBoardViewModel
+
+@{
     ViewBag.Title = "Home Page";
 }
 <html>
 <body>
-
     <div class="page-holder w-100 d-flex flex-wrap">
-        <div class="container-fluid px-xl-5">
-            <section class="py-5">
-                <div class="row">
-                    <div class="col-xl-3 col-lg-6 mb-4 mb-xl-0">
-                        <div class="bg-white shadow roundy p-4 h-100 d-flex align-items-center justify-content-between">
-                            <div class="flex-grow-1 d-flex align-items-center">
-                                <div class="dot mr-3 bg-green"></div>
-                                <div class="text">
-                                    <h6 class="mb-0">Projects</h6><span class="text-gray"></span>
+        <div class="page-holder w-100 d-flex flex-wrap">
+            <div class="container-fluid px-xl-5">
+                <section class="py-5">
+                    <div class="row">
+                        @if (User.IsInRole("Admin") || User.IsInRole("Project Manager"))
+                        {
+                            <div class="col-xl-3 col-lg-6 mb-4 mb-xl-0">
+                                <div class="bg-white shadow roundy p-4 h-100 d-flex align-items-center justify-content-between">
+                                    <div class="flex-grow-1 d-flex align-items-center">
+                                        <div class="dot mr-3 bg-violet"></div>
+                                        <div class="text">
+                                            <h6 class="mb-0">All Projects</h6><span class="text-gray">@Model.AllProjects</span>
+                                        </div>
+                                    </div>
+                                    <div class="icon text-white bg-violet"><i class="far fa-clipboard"></i></div>
                                 </div>
                             </div>
-                            <div class="icon text-white bg-green"><i class="far fa-clipboard"></i></div>
-                        </div>
+                            <div class="col-xl-3 col-lg-6 mb-4 mb-xl-0">
+                                <div class="bg-white shadow roundy p-4 h-100 d-flex align-items-center justify-content-between">
+                                    <div class="flex-grow-1 d-flex align-items-center">
+                                        <div class="dot mr-3 bg-blue"></div>
+                                        <div class="text">
+                                            <h6 class="mb-0">Open Tickets</h6><span class="text-gray">@Model.OpenTickets</span>
+                                        </div>
+                                    </div>
+                                    <div class="icon text-white bg-blue"><i class="fas fa-receipt"></i></div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-lg-6 mb-4 mb-xl-0">
+                                <div class="bg-white shadow roundy p-4 h-100 d-flex align-items-center justify-content-between">
+                                    <div class="flex-grow-1 d-flex align-items-center">
+                                        <div class="dot mr-3 bg-green"></div>
+                                        <div class="text">
+                                            <h6 class="mb-0">Resolved Tickets</h6><span class="text-gray">@Model.ResolvedTickets</span>
+                                        </div>
+                                    </div>
+                                    <div class="icon text-white bg-green"><i class="fas fa-receipt"></i></div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-lg-6 mb-4 mb-xl-0">
+                                <div class="bg-white shadow roundy p-4 h-100 d-flex align-items-center justify-content-between">
+                                    <div class="flex-grow-1 d-flex align-items-center">
+                                        <div class="dot mr-3 bg-red"></div>
+                                        <div class="text">
+                                            <h6 class="mb-0">Closed Tickets</h6><span class="text-gray">@Model.ClosedTickets</span>
+                                        </div>
+                                    </div>
+                                    <div class="icon text-white bg-red"><i class="fas fa-server"></i></div>
+                                </div>
+                            </div>
+                        }
+                        @if (User.IsInRole("Developer"))
+                        {
+                            <div class="col-xl-3 col-lg-6 mb-4 mb-xl-0">
+                                <div class="bg-white shadow roundy p-4 h-100 d-flex align-items-center justify-content-between">
+                                    <div class="flex-grow-1 d-flex align-items-center">
+                                        <div class="dot mr-3 bg-violet"></div>
+                                        <div class="text">
+                                            <h6 class="mb-0">Assigned Projects</h6><span class="text-gray">@Model.ProjectAssignedToDev</span>
+                                        </div>
+                                    </div>
+                                    <div class="icon text-white bg-violet"><i class="far fa-clipboard"></i></div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-lg-6 mb-4 mb-xl-0">
+                                <div class="bg-white shadow roundy p-4 h-100 d-flex align-items-center justify-content-between">
+                                    <div class="flex-grow-1 d-flex align-items-center">
+                                        <div class="dot mr-3 bg-blue"></div>
+                                        <div class="text">
+                                            <h6 class="mb-0">Assigned Ticket</h6><span class="text-gray">@Model.TicketAssignedToDev</span>
+                                        </div>
+                                    </div>
+                                    <div class="icon text-white bg-blue"><i class="fas fa-receipt"></i></div>
+                                </div>
+                            </div>
+                        }
+                        @if (User.IsInRole("Submitter"))
+                        {
+                            <div class="col-xl-3 col-lg-6 mb-4 mb-xl-0">
+                                <div class="bg-white shadow roundy p-4 h-100 d-flex align-items-center justify-content-between">
+                                    <div class="flex-grow-1 d-flex align-items-center">
+                                        <div class="dot mr-3 bg-violet"></div>
+                                        <div class="text">
+                                            <h6 class="mb-0">Assigned Project</h6><span class="text-gray">@Model.ProjectAssignedToSub</span>
+                                        </div>
+                                    </div>
+                                    <div class="icon text-white bg-violet"><i class="far fa-clipboard"></i></div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-lg-6 mb-4 mb-xl-0">
+                                <div class="bg-white shadow roundy p-4 h-100 d-flex align-items-center justify-content-between">
+                                    <div class="flex-grow-1 d-flex align-items-center">
+                                        <div class="dot mr-3 bg-blue"></div>
+                                        <div class="text">
+                                            <h6 class="mb-0">Created Tickets</h6><span class="text-gray">@Model.TicketCreatedBySub</span>
+                                        </div>
+                                    </div>
+                                    <div class="icon text-white bg-blue"><i class="fas fa-receipt"></i></div>
+                                </div>
+                            </div>
+                        }
                     </div>
-                </div>
-            </section>
+                </section>
+            </div>
         </div>
     </div>
 </body>

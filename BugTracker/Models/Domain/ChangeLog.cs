@@ -5,23 +5,17 @@ using System.Web;
 
 namespace BugTracker.Models.Domain
 {
-    public class Comment
+    public class ChangeLog
     {
         public int Id { get; set; }
-        public string CommentBody { get; set; }
-        public DateTime CommentCreated { get; set; }
-        public DateTime? CommentUpdated { get; set; }
+        public string PropertyName { get; set; }
+        public string OldValue { get; set; }
+        public string NewValue { get; set; }
 
         public virtual Ticket Ticket { get; set; }
         public int TicketId { get; set; }
 
         public virtual ApplicationUser User { get; set; }
         public string UserId { get; set; }
-        public string UserName { get; set; }
-
-        public Comment()
-        {
-            CommentCreated = DateTime.Now;
-        }
     }
 }

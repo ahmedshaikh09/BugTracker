@@ -136,6 +136,8 @@ namespace BugTracker.Migrations
             {
                 userManager.AddToRole(adminUser.Id, "Admin");
             }
+
+
         }
     }
 }

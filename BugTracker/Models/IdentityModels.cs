@@ -17,12 +17,17 @@ namespace BugTracker.Models
         public virtual List<Project> Projects { get; set; }
         public virtual List<Comment> Comments { get; set; }
         public virtual List<Attachment> Attachments { get; set; }
+        public virtual List<ChangeLog> ChangeLogs { get; set; }
+
 
         [InverseProperty(nameof(Ticket.CreatedBy))]
         public virtual List<Ticket> CreatedTickets { get; set; }
 
         [InverseProperty(nameof(Ticket.AssignedTo))]
         public virtual List<Ticket> AssignedTickets { get; set; }
+
+        [InverseProperty("UserNotification")]
+        public virtual List<Ticket> Notification { get; set; }
 
         public ApplicationUser()
         {
@@ -50,6 +55,8 @@ namespace BugTracker.Models
         public DbSet<Project> Projects { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Attachment> Attachments { get; set; }
+        public DbSet<ChangeLog> ChangeLogs { get; set; }
+
 
         public DbSet<Ticket> Tickets { get; set; }
         public DbSet<TicketPriority> TicketPriority { get; set; }

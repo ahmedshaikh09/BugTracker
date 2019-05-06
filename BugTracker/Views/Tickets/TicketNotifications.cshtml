@@ -1,0 +1,22 @@
+﻿@model TicketNotificationsViewModel
+
+@{
+    ViewBag.Title = "TicketNotifications";
+}
+
+<h2>Wish to stay Updated about any changes on this ticket?</h2>
+
+<form method="post" enctype="multipart/form-data">
+    @Html.ValidationSummary(false)
+    <div class="form-group">
+        <span>Sign Up for Email Notifications:</span>
+
+        <input type="checkbox" name="Notification" value="subscribed" @(Model.Users.Any(p => p.UserName == User.Identity.Name) ? "checked" : "")/>
+
+    </div>
+    <div class="">
+        <button type="submit" class="btn btn-blue">Confirm</button>
+    </div>
+</form>
+<hr>
+

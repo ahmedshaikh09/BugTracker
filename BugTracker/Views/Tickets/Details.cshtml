@@ -27,63 +27,90 @@
     </div>
 </form>
 <hr />
-    <h4>Comments</h4>
+<h4>Comments</h4>
 
-    @foreach (var record in Model.Comments)
-    {
+@foreach (var record in Model.Comments)
+{
+    <ol class="list-unstyled comment-list">
+
+        <li class="comment-item media well well-sm">
+            <span class="font-italic">
+                @record.CommentBody
+            </span>
+            <hr />
+            <span>
+                Comment By: @record.UserName
+            </span>
+            <hr />
+            <span>
+                @record.CommentCreated
+            </span>
+            <hr />
+            <span>
+                <a class="btn-blue" href="@Url.Action("EditComment", "Tickets", new { id = record.Id })">Edit</a>
+            </span>
+            <form method="post" action="@Url.Action("DeleteComment", "Tickets", new { Id = record.Id })">
+                <a href="@Url.Action("DeleteComment", "Tickets", new { Id = record.Id })" class="btn-delete"><strong>X</strong></a>
+            </form>
+        </li>
+    </ol>
+}
+<hr />
+
+<h4>Leave a comment</h4>
+<form role="form" class="clearfix" method="post" action="@Url.Action("AddComment","Tickets",new {title = Model.Title})">
+    @Html.ValidationSummary(false)
+    <div class="col-md-12 form-group">
+        @Html.TextAreaFor(p => p.CommentBody, new { @class = "form-control", id = "Comment-body", rows = "6", placeholder = "Comment here" })
+    </div>
+    <div class="col-md-12 form-group text-left">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</form>
+
+<h4>Attachments</h4>
+@foreach (var record in Model.Attachments)
+{
+    <div class="col-md-2">
+        @if (!string.IsNullOrWhiteSpace(record.MediaUrl))
+        {
+            <img style="height : 100px; width: 120px; border-radius: 20px;" class="img-responsive" src="@Url.Content(record.MediaUrl)" />
+        }
+    </div>
+    <form method="post" action="@Url.Action("DeleteAttachment", "Tickets", new { Id = record.Id })">
+        <a href="@Url.Action("DeleteAttachment", "Tickets", new { Id = record.Id })" class="btn-delete"><strong>X</strong></a>
+    </form>
+    <hr />
+
+}
+<hr />
+
+<h4>Add an Attachment</h4>
+<form method="post" enctype="multipart/form-data" action="@Url.Action("AddAttachment","Tickets",new {title=Model.Title})">
+    @Html.ValidationSummary(false)
+    <div class="form-group">
+        <input type="file" name="FileUpload" />
+    </div>
+    <div class="">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</form>
+
+<hr />
+
+<h4>Ticket History</h4>
+<hr />
+@foreach (var record in Model.ChangeLogs)
+{
         <ol class="list-unstyled comment-list">
-
-            <li class="comment-item media well well-sm">
+            <li>
                 <span class="font-italic">
-                    @record.CommentBody
+                    @record.PropertyName was Changed from <strong> @record.OldValue </strong> to <strong> @record.NewValue </strong>
                 </span>
                 <hr />
-                <span>
-                    Comment By: @record.UserName
-                </span>
-                <hr />
-                <span>
-                    @record.CommentCreated
-                </span>
+            </li>
         </ol>
-    }
-    <hr />
-
-    <h4>Leave a comment</h4>
-    <form role="form" class="clearfix" method="post" action="@Url.Action("AddComment","Tickets",new {title = Model.Title})">
-        @Html.ValidationSummary(false)
-        <div class="col-md-12 form-group">
-            @Html.TextAreaFor(p => p.CommentBody, new { @class = "form-control", id = "Comment-body", rows = "6", placeholder = "Comment here" })
-        </div>
-        <div class="col-md-12 form-group text-left">
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </div>
-    </form>
-
-    <h4>Attachments</h4>
-    @foreach (var record in Model.Attachments)
-    {
-        <div class="col-md-2">
-            @if (!string.IsNullOrWhiteSpace(record.MediaUrl))
-            {
-                <img style="height : 100px; width: 120px; border-radius: 20px;" class="img-responsive" src="@Url.Content(record.MediaUrl)" />
-            }
-        </div>
-        <hr />
-    }
-    <hr />
-
-    <h4>Add an Attachment</h4>
-    <form method="post" enctype="multipart/form-data" action="@Url.Action("AddAttachment","Tickets",new {title=Model.Title})">
-        @Html.ValidationSummary(false)
-        <div class="form-group">
-            <input type="file" name="FileUpload" />
-        </div>
-        <div class="">
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </div>
-    </form>
-
+}
 
 
 

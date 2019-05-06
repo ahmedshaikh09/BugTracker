@@ -6,11 +6,9 @@ using System.Web;
 
 namespace BugTracker.Models.ViewModels
 {
-    public class AddEditProjectsViewModel
+    public class EditCommentViewModel
     {
         [Required]
-        public string Name { get; set; }
-
-
+        public string CommentBody { get; set; }
     }
 }

@@ -27,8 +27,7 @@ namespace BugTracker.Models.ViewModels
 
         [Required]
         public int Project { get; set; }
-
-        [Required]
+        
         public int CreatedById { get; set; }
 
         public IEnumerable<SelectListItem> TicketStatuses { get; set; }

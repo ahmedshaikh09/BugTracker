@@ -35,24 +35,29 @@
             <th>Users Assigned</th>
             <th></th>
             <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var record in Model)
         {
-            <tr>
-                <td>@record.Name</td>
-                <td>@record.Tickets</td>
-                <td>@record.Created</td>
-                <td>@record.Updated</td>
-                <td>@record.AssignedUsers</td>
-                <td>
-                    <a href="@Url.Action("EditProject", "Projects", new { id = record.Id })">Edit</a>
-                </td>
-                <td>
-                    <a href="@Url.Action("ProjectAssign", "Projects", new { id = record.Id })">Assign</a>
-                </td>
-            </tr>
+        <tr>
+            <td>@record.Name</td>
+            <td>@record.Tickets</td>
+            <td>@record.Created</td>
+            <td>@record.Updated</td>
+            <td>@record.AssignedUsers</td>
+            <td>
+                <a href="@Url.Action("EditProject", "Projects", new { id = record.Id })">Edit</a>
+            </td>
+            <td>
+                <a href="@Url.Action("ProjectAssign", "Projects", new { id = record.Id })">Assign</a>
+            </td>
+            <td>
+                <a href="@Url.Action("ProjectArchive", "Projects", new { id = record.Id })">Archive</a>
+            </td>
+
+        </tr>
         }
     </tbody>
 </table>
